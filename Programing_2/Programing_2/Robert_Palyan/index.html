@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+    <script src="class.js"></script>
+	<script src="script.js"></script>
+	  <style>
+        #legend {position: absolute;top: 0;right: 0;width: 800px;} 
+		.legend-color {width: 30px;height: 30px;} 
+		td {border: 1px solid black; font-size: 14px; padding-left: 5px;}
+    </style>
+</head>
+<body>
+    <table id="legend">
+        <tr>
+            <td class="legend-color">Գույն</td>
+            <td>Անվանում</td>
+            <td>Շարժվում է</td>
+            <td>Ուտում է</td>
+            <td>Բազմանում է</td>
+            <td>Սատկում է</td>
+        </tr>
+
+        <tr>
+            <td class="legend-color" style="background-color:gray"></td>
+            <td>Դատարկ վանդակներ</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="legend-color" style="background-color:green"></td>
+            <td>Խոտ</td>
+            <td></td>
+            <td></td>
+            <td>Մոտակա 8 վանդակներում, 8 տակտը մեկ</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="legend-color" style="background-color:yellow"></td>
+            <td>Խոտակեր</td>
+            <td>Մոտակա 8 վանդակներում, էներգիան քչանում է 1֊ով</td>
+            <td>Խոտերին, մոտակա 8 վանդակներում, շարժվելիս էներգիան ավելանում է 1֊ով</td>
+            <td>Բազմանում է մոտակա տարածքներում, երբ էներգիան 8֊ից ավել է</td>
+            <td>Սատկում է, երբ էներգիան փոքր է 0֊ից</td>
+        </tr>
+        <tr>
+            <td class="legend-color" style="background-color:red"></td>
+            <td>Գիշատիչ</td>
+            <td>Մոտակա 8 վանդակներում, էներգիան քչանում է 1֊ով</td>
+            <td>Խոտակերներին, մոտակա 8 վանդակներում, շարժվելիս էներգիան ավելանում է 1֊ով</td>
+            <td>Բազմանում է մոտակա տարածքներում, երբ էներգիան 12֊ից ավել է</td>
+            <td>Սատկում է, երբ էներգիան փոքր է 0֊ից</td>
+        </tr>
+	</table>
+
+	<div style="margin-top: 300px; position: absolute;top: 0;right: 0;width: 800px;border: solid orange 2px;padding: 10px; font-size: 20px;">	
+		<div style=" height: 30px; width: 30px; background-color:orange;float: left;"></div><p style="display: inline;">Snake</p>
+		<p>1)Motaka 8 vandakneric random kerpov(baci kapuytic) utem e vandak. Amen mi tip utelu hamar stanum e inch vor qanakutyamb energia. BAYC ete hankarc srjakayqum miayn kapuyt vandakner e linum na karoxe nayev kapuyt utel minchev vor urish chgtni</p>
+		<p>2)ete energian mec e zroyic inch vor ban uteluc, nra naxord vandaky(vortexic vor kerel er) na stexcum e kapuyt obyekt</p>
+		<p>3)Chi bazmanum</p>
+		<p>4)Karoxe mernel mian sev obyekti koxmic</p>
+	</div>
+	<div style="margin-top: 620px; position: absolute;top: 0;right: 0;width: 800px;border: solid blue 2px;padding: 10px; font-size: 20px;">	
+		<div style=" height: 30px; width: 30px; background-color:blue;float: left;"></div><p style="display: inline;">Stone</p>
+		<p>1)Motaka 8 vandaknerum ete azat tex ka bazmanum e</p>
+		<p>2)utum e amen inch bacy irenic,sev ev orange obyekneric</p>
+		<p>3)bazmanum e 22tempov</p>
+		<p>4)Karoxe mernel mian sev ev orange obyekneri koxmic</p>
+	</div>
+	<div style="margin-top: 870px; position: absolute;top: 0;right: 0;width: 800px;border: solid blue 2px;padding: 10px; font-size: 20px;">	
+		<div style=" height: 30px; width: 30px; background-color:black;float: left;"></div><p style="display: inline;">Hunter</p>
+		<p>1)ete energian < 15 => motaka 8, ete energian < 25 => motaka 16,ete energian > 25 => motaka 21 vandakner man e galis skzbic orange apa blue apa red apa yellow apa green ev ete voch meknel chi bavararum stipvac azat dasht e man galis</15></p>
+		<p>2)utum e amen inch glxavor nhsanakety orangn e</p>
+		<p>3)bazmanum e 26tempov</p>
+		<p>4)Mahanum e erb utvum e orangi koxmic, kam 11 temp sharunak uteliq chi haytaytum , kamel ete irar hetevic utum e Red > 7, Yellow > 8, Green > 25 </p>
+		<p>5)axvac kervac obyektic aynqanel el energy e galis ev sharjveluc -1 </p>
+	</div>
+</body>
+</html>
