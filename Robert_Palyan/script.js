@@ -10,8 +10,8 @@ var lengthX = 60;
 
 var matrix = [];
 for (let y = 0; y < lengthY; y++) {
-    matrix[y] = []; 
-    for (let x = 0; x < lengthX; x++) 
+    matrix[y] = [];
+    for (let x = 0; x < lengthX; x++)
     {
         let a = Math.floor(Math.random() * 100);
         if (a >= 0 && a < 30)
@@ -30,7 +30,7 @@ var snake = new Snake(lengthY/2,lengthX/2);
 var hunter = new Hunter(10,10);
 hunterArr[0] = hunter;
 
-function setup() {    
+function setup() {
      matrix[lengthY/2][lengthX/2] = 5;
      matrix[10][10] = 6;
 
@@ -55,7 +55,7 @@ function setup() {
             }
         }
     }
- 
+
 }
 
 var corners = [
@@ -104,7 +104,7 @@ function draw() {
     if(snake != null)
     snake.act();
     for (var i in grassArr) {
-        grassArr[i].mul();
+        grassArr[i].Action();
     }
     for (var i in grassEaterArr) {
         grassEaterArr[i].move();

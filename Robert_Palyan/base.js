@@ -1,10 +1,9 @@
-class Grass
-{
+class LivingCreature {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
         this.index = index;
-        this.multiply = 0;
+        this.energy = 0;
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -16,39 +15,184 @@ class Grass
             [this.x + 1, this.y + 1]
         ];
     }
-    chooseCell(character)
-    {
+
+    getNewCoordinates() {
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ];
+    }
+    chooseCell(character, isGrass) {
+        if (!isGrass)
+            this.getNewCoordinates();
+
         var found = [];
-        for (var i in this.directions) {
+        for (var i in this.directions)
+        {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
 
-            if (matrix[y] == undefined || matrix[y][x] == undefined) 
+            if (matrix[y] == undefined || matrix[y][x] == undefined)
                 continue;
 
             if (matrix[y][x] == character)
                 found.push(this.directions[i]);
         }
+
         return found;
     }
-    mul()
-    {
-        this.multiply++;
-        var newCell = random(this.chooseCell(0));
-        if (this.multiply >= 8 && newCell) {
-            var newGrass = new Grass(newCell[0], newCell[1], this.index);
-            grassArr.push(newGrass);
-            matrix[newCell[1]][newCell[0]] = 1;
-            this.multiply = 0;
+
+
+    mul(borderEng, newEng,isGrass,character,Myclass,arr) {
+        if(this.energy>=borderEng)
+        {
+            var newCell = random(this.chooseCell(character,isGrass));
+
+            if (newCell) {
+                matrix[newCell[1]][newCell[0]] = this.index;
+                this.energy = newEng;
+
+                var newItem = new Myclass(newCell[0], newCell[1], this.index);
+                arr.push(newItem);
+                return true;
+            }
         }
+        return false;
+    }
+
+    die(arr)
+    {
+        if (this.energy <= 0)
+        {
+          console.log("die");
+            console.log(matrix[this.y][this.x]);
+
+            matrix[this.y][this.x] = 0;
+
+            console.log(matrix[this.y][this.x]);
+
+            for (var i in arr)
+            {
+                if (this.x == arr[i].x && this.y == arr[i].y)
+                {
+                    arr.splice(i, 1);
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+
+    eat(character,arrSplice) {
+        var newCell = random(this.chooseCell(character));
+
+        if (newCell) {
+            var newX = newCell[0];
+            var newY = newCell[1];
+
+            matrix[this.y][this.x] = 0;
+            matrix[newY][newX] = this.index;
+            console.log(newCell);
+
+            this.destroy(newX,newY,arrSplice);
+
+            this.y = newY;
+            this.x = newX;
+            // this.energy += 2;
+            return newCell;
+        }
+        else{
+            return undefined;
+        }
+    }
+    destroy(x,y,arr)
+    {
+        for (var i in arr) {
+            if (x == arr[i].x && y == arr[i].y) {
+                arr.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    move(){
+        var newCell = random(this.chooseCell(0));
+
+        if (newCell) {
+            var newX = newCell[0];
+            var newY = newCell[1];
+
+            matrix[this.y][this.x] = 0;
+            matrix[newY][newX] = this.index;
+
+            this.y = newY;
+            this.x = newX;
+
+            return newCell;
+        }
+
+        return undefined;
     }
 }
 
-class GrassEater {
+class Grass extends LivingCreature{
+    constructor(x, y, index){
+        super(x,y,index);
+    }
+    Action(){
+        this.energy++;
+        super.mul(8,0,true,0,Grass,grassArr);
+    }
+}
+
+// class GrassEater extends Creature{
+//     constructor(x, y, index){
+//         super(x,y,index);
+//         this.energy = 4;
+//     }
+//     Action(){
+//         this.energy--;
+//         var isDead = super.die(grassEaterArr);
+//         if(isDead){
+//             console.log("mera");
+//             return;
+//         }
+//
+//         var isMul = super.mul(8,4,false,0,GrassEater,grassEaterArr);
+//         if(isMul){
+//             return;
+//         }
+//
+//         var newCell = super.eat(1,grassArr);
+//         if(newCell)
+//         {
+//             console.log(newCell);
+//             this.y = newCell[0];
+//             this.x = newCell[1];
+//             this.energy += 2;
+//         }
+//         else
+//         {
+//             var newCell2 = super.move();
+//             if(newCell2){
+//                 this.y = newCell2[0];
+//                 this.x = newCell2[1];
+//             }
+//         }
+//
+//     }
+// }
+
+class GrassEater extends LivingCreature {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+        super(x,y,index);
         this.energy = 4;
     }
     getNewCoordinates() {
@@ -92,7 +236,7 @@ class GrassEater {
             this.y = newY;
             this.x = newX;
             this.energy--;
-        } 
+        }
     }
     eat() {
         var newCell = random(this.chooseCell(1));
@@ -135,17 +279,15 @@ class GrassEater {
                 if (this.x == grassEaterArr[i].x && this.y == grassEaterArr[i].y) {
                     grassEaterArr.splice(i, 1);
                     break;
-                }                
+                }
             }
         }
     }
 }
 
-class Predator {
+class Predator extends LivingCreature {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+        super(x,y,index);
         this.energy = 4;
     }
     getNewCoordinates() {
@@ -196,7 +338,7 @@ class Predator {
                 this.y = newY;
                 this.x = newX;
 
-            } 
+            }
         }
     }
     eat(newCell) {
@@ -236,17 +378,16 @@ class Predator {
                 if (this.x == predatorArr[i].x && this.y == predatorArr[i].y) {
                     predatorArr.splice(i, 1);
                     break;
-                }                
+                }
             }
         }
     }
 }
 
-class Snake {
+class Snake extends LivingCreature{
     constructor(x,y)
     {
-        this.x = x;
-        this.y = y;
+        super(x,y,5);
         this.index = 5;
         this.energy = 1;
     }
@@ -301,7 +442,7 @@ class Snake {
         var activeCell = random(this.chooseCorrectCell(4));
         var index;
 
-        if (activeCell != undefined) 
+        if (activeCell != undefined)
         {
             var newX = activeCell[0];
             var newY = activeCell[1];
@@ -318,15 +459,15 @@ class Snake {
                 this.energy+=2;
             }
             else if (index == 2) {
-                this.destroy(newX,newY,grassEaterArr);   
-                this.energy+=3;             
+                this.destroy(newX,newY,grassEaterArr);
+                this.energy+=3;
             }
             else if (index == 3) {
                 this.destroy(newX,newY,predatorArr);
                 this.energy+=4;
             }
 
-            if (this.energy > 0)                
+            if (this.energy > 0)
             this.createStone(this.x,this.y);
             else
                 matrix[this.y][this.x] = 0;
@@ -339,13 +480,13 @@ class Snake {
         }
 
         activeCell = random(this.chooseCell(4));
-        if (activeCell != undefined) 
+        if (activeCell != undefined)
         {
             var newX = activeCell[0];
             var newY = activeCell[1];
             matrix[newY][newX] = 5;
             this.destroy(newX,newY,stoneArr);
-            if (this.energy > 0)                
+            if (this.energy > 0)
             this.createStone(this.x,this.y);
             else
                 matrix[this.y][this.x] = 0;
@@ -353,7 +494,7 @@ class Snake {
             this.x = newX;
             this.y = newY;
 
-          
+
         }
     }
     destroy(x,y,arr)
@@ -373,13 +514,11 @@ class Snake {
     }
 }
 
-class Stone
+class Stone extends LivingCreature
 {
     constructor(x,y,index)
     {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+        super(x,y,index);
         this.energy = 0;
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -416,7 +555,7 @@ class Stone
         var activeCell = random(this.chooseCell(4,5,6));
         var index;
 
-        if (activeCell != undefined) 
+        if (activeCell != undefined)
         {
             var newX = activeCell[0];
             var newY = activeCell[1];
@@ -428,7 +567,7 @@ class Stone
                 this.destroy(newX,newY,grassArr);
             }
             else if (index == 2) {
-                this.destroy(newX,newY,grassEaterArr);                
+                this.destroy(newX,newY,grassEaterArr);
             }
             else if (index == 3) {
                 this.destroy(newX,newY,predatorArr);
@@ -453,12 +592,11 @@ class Stone
     }
 }
 
-class Hunter
+class Hunter extends LivingCreature
 {
     constructor(x,y)
     {
-        this.x = x;
-        this.y = y;
+        super(x,y,6);
         this.index = 6;
         this.energy = 11;
         this.count = 0;
@@ -586,7 +724,7 @@ class Hunter
                         this.die();
                         return;
                     }
-                    
+
                     this.eat(predCell);
                     this.destroy(predCell,predatorArr);
 
@@ -602,7 +740,7 @@ class Hunter
                     this.quantityGE++;
                     if (this.quantityGE < 6)
                         this.energy+=3;
-                                            
+
                     if (this.quantityGE > 8){
                         this.die();
                         return;
@@ -642,10 +780,10 @@ class Hunter
             this.count++;
             var X = emptyCell[0];
             var Y = emptyCell[1];
-    
+
             matrix[Y][X] = 6;
             matrix[this.y][this.x] = 0;
-    
+
             this.x = X;
             this.y = Y;
 
@@ -659,7 +797,7 @@ class Hunter
     eat(cell)
     {
         this.count = 0;
-        
+
         var X = cell[0];
         var Y = cell[1];
 
