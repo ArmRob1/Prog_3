@@ -1,3 +1,6 @@
+var LivingCreature = require("../base");
+
+
 module.exports = class GrassEater extends LivingCreature {
     constructor(x, y, index) {
         super(x,y,index);

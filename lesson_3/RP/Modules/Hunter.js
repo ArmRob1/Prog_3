@@ -1,3 +1,5 @@
+var LivingCreature = require("../base");
+
 module.exports = class Hunter extends LivingCreature{
     constructor(x,y)
     {

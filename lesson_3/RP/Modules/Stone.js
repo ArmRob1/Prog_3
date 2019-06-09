@@ -1,3 +1,5 @@
+var LivingCreature = require("../base");
+
 module.exports = class Stone extends LivingCreature{
     constructor(x,y,index)
     {

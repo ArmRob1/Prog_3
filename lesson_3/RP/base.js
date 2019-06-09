@@ -1,4 +1,4 @@
-class LivingCreature {
+module.exports = class LivingCreature {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
@@ -141,6 +141,7 @@ class LivingCreature {
         return undefined;
     }
 }
+
 
 // class Grass extends LivingCreature{
 //     constructor(x, y, index){

@@ -8,7 +8,7 @@ var Grass = require("./Modules/Grass");
 var GrassEater = require("./Modules/GrassEater");
 var Hunter = require("./Modules/Hunter");
 var Snake = require("./Modules/Snake");
- var Stone = require("./Modules/Stone");
+var Stone = require("./Modules/Stone");
 
 
 
