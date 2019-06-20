@@ -6,8 +6,11 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         canvas {
+            border: 2px solid red;
+            margin-left: 20px;
+            margin-top: 20px;
             display: block;
-            margin: 0 auto;
+            float: left;
         }
 
         div {
@@ -22,12 +25,33 @@
         body {
             font-family: 'Noto Sans', sans-serif !important;
         }
+        #weatherImg{
+            border: 1.5px solid red;
+            border-radius: 50px;
+            margin-bottom: 10px;
+            position: relative;
+            margin-left: 30;
+        }
+        #weatherTxt{
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .weather{
+            margin-top: 20px;
+            margin-left: 20px;
+            width: 130px;
+            height: 130px;
+        }
     </style>
     </style>
 </head>
 
 <body>
-  
+    <div class="weather">
+        <img id="weatherImg" src="./images/summer.png" width="70" height="70">
+        <h2 id ="weatherTxt"></h2>
+    </div>
     <script src="p5.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
