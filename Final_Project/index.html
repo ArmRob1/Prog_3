@@ -43,7 +43,20 @@
             width: 130px;
             height: 130px;
         }
-    </style>
+        #infoP{
+            position: absolute;
+            margin-top: 200px;
+            margin-left: -200px;
+        }
+        #money{
+            display: block;
+        }
+        #Stats{
+            position: absolute;
+            margin-top: 700px;
+            margin-left: -200px;
+        }
+
     </style>
 </head>
 
@@ -52,9 +65,34 @@
         <img id="weatherImg" src="./images/summer.png" width="70" height="70">
         <h2 id ="weatherTxt"></h2>
     </div>
+    <div>
+        <p id="money"></p>
+    </div>
+
+
     <script src="p5.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
+    <div id="infoP">
+        <hr>
+        <img style="width: 100px"; src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/401781/910/910/m1/fpnw/wm0/unity_preview_02-.png?1426309389&s=495393b8d005b57a6786c21127a8e8a4">
+        <hr>
+        <h4>Wall cost 10$, Each round one wall gives 2.5$</h4>
+        <h4>To place wall click "SHIFT"</h4>
+        <hr>
+
+        <hr>
+        <img style="width: 100px"; src="https://png.pngtree.com/svg/20160806/f2b310da9d.svg">
+        <hr>
+        <h4>Trap cost 30$,It kills black chars</h4>
+        <h4>To place wall click "E"</h4>
+        <hr>
+    </div>
+    <div id="Stats">
+        <p id ="GrassCount"></p>
+        <p id ="StoneCount"></p>
+        <p>Move : W , A , S , D</p>
+    </div>
 </body>
 
 </html>

@@ -42,8 +42,13 @@ module.exports = class GrassEater extends LiveForm {
         let newCell = random(emptyCells);
 
         if (newCell) {
+            if (weather == "winter") {
+                this.life+=0.5;
+            }
+            else{
+                this.life++;
 
-            this.life++;
+            }
             let x = newCell[0];
             let y = newCell[1];
 
@@ -58,7 +63,7 @@ module.exports = class GrassEater extends LiveForm {
             this.x = x;
             this.y = y;
 
-            if (this.life >= 13) {
+            if (this.life >= 8) {
                 this.mul();
             }
         }

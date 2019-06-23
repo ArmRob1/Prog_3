@@ -3,9 +3,15 @@ var random = require("./random");
 
 
 module.exports = class Grass extends LiveForm {
-    constructor(x, y) {
+    constructor(x, y,isboy) {
         super(x, y);
-        this.multiply = 0;
+        this.multiply = 2;
+        if (isboy == 0) {
+            this.gend = "boy";
+        }
+        else{
+            this.gend = "girl";
+        }
     }
     getNewCoordinates() {
         this.directions = [
@@ -24,18 +30,37 @@ module.exports = class Grass extends LiveForm {
         return super.chooseCell(character);
     }
     mul() {
-        this.multiply++;
+        if (weather == "winter") {
+            return;
+        }
+
+        if (weather == "spring") {
+            this.multiply+=1.5;
+        }
+        else{
+            this.multiply++;
+        }
+
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
 
-        if (newCell && this.multiply >= 2) {
+        let bord;
+        if (this.gend == "boy") {
+            bord = 3;
+        }
+        else{
+            bord = 3.5;
+        }
+
+
+        if (newCell && this.multiply >= bord) {
             grassHashiv++;
             let x = newCell[0];
             let y = newCell[1];
             matrix[y][x] = 1;
             let grass = new Grass(x, y);
             grassArr.push(grass);
-            this.multiply = 0;
+            this.multiply = 0.5;
         }
     }
 }

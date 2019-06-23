@@ -1,25 +1,2 @@
-________________________
-Grass
-	Winter->
-		1)change color
-		2)stop mul
-	Spring->
-		1)Fast mul
-		2)Color back
-________________________
-GrassEater
-	Winter->
-		1)change color
-		2)stop move  <-------
-	Spring->				|
-		1)color back		|
-		2)fast mul			|
-________________________	|
-Import 						|
-	1)Predator	\   		|       
-	2)Snake		 \__________|
-	3)Stone		 /
-	4)Hunter	/
-________________________
-Output Statistics
-________________________		
+Click event
+-->Clear all 
