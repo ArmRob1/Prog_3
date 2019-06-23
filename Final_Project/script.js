@@ -10,7 +10,7 @@ function setup() {
 
    let grassCountElement = document.getElementById('GrassCount');
    let stoneCountElement = document.getElementById('StoneCount');
-   // let grassEaterCountElement = document.getElementById('grassEaterCount');
+
    let weatherImg = document.getElementById("weatherImg");
    let weatherTxt = document.getElementById("weatherTxt");
 
@@ -21,7 +21,7 @@ function setup() {
          moneyTxt.style.color = "red";
       }
       else{
-         moneyTxt.style.color = "black";
+         moneyTxt.style.color = "green";
       }
       moneyTxt.innerText = "Money: "+data.money;
       let wetIndent;
@@ -51,8 +51,6 @@ function setup() {
          weatherTxt.innerText = "Spring";
          wetIndent = 4;
       }
-
-      //grassCountElement.innerText = data.grassCounter;
 
       createCanvas(matrix[0].length * side, matrix.length * side);
       background('#acacac');
@@ -121,16 +119,6 @@ function setup() {
                fill(col);
                rect(j * side + 3 * side / 8, i * side + 3 * side / 8, side / 4, side / 4);
             }
-            // } else if (matrix[i][j] == 3) {
-            //    fill('red');
-            //    rect(j * side, i * side, side, side);
-            // } else if (matrix[i][j] == 4) {
-            //    fill('blue');
-            //    rect(j * side, i * side, side, side);
-            // } else if (matrix[i][j] == 5) {
-            //    fill('yellow');
-            //    rect(j * side, i * side, side, side);
-            // }
          }
       }
    }
@@ -184,3 +172,18 @@ function keyPressed() {
    isWall = false;
    dir = undefined;
 }
+
+var isNight = false;
+function bodyClick(evt){
+    if (!isNight) {
+        document.body.style.backgroundColor = "black";
+        document.body.style.color = "white";
+        isNight = true;
+    }
+    else{
+        document.body.style.backgroundColor = "white"; 
+        document.body.style.color = "black";
+        isNight = false;
+    }
+}
+window.onclick = bodyClick;
