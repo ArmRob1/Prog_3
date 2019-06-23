@@ -167,6 +167,16 @@ function game() {
       notEnoughMoney: false
    }
 
+   var obj = {
+      GrassBorn : grassHashiv,
+      StoneBorn : stoneCount
+   }
+   var myJSON = JSON.stringify(obj);
+   fs.writeFile("thing.json", myJSON,function(err, result) {
+      if(err) console.log('error', err);
+   });
+
+
    io.sockets.emit("data", sendData);
 }
 
@@ -217,14 +227,7 @@ function PlayerAct(player) {
       stoneCount: stoneCount,
       notEnoughMoney: notEnoughMoney
    }
-   var obj = {
-      GrassBorn : grassHashiv,
-      StoneBorn : stoneCount
-   }
-   var myJSON = JSON.stringify(obj);
-   fs.writeFile("thing.json", myJSON,function(err, result) {
-      if(err) console.log('error', err);
-   });
+
 
    io.sockets.emit("data", sendData);
 }
